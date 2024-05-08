@@ -1,5 +1,5 @@
 import NavItems from "./navItems"
-import './styles.css';
+import './NavBar.scss';
 
 const NavBar = () => {
 	return (
