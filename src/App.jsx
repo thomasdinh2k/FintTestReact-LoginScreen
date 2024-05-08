@@ -6,11 +6,11 @@ import SettingScreen from "./components/SettingScreen/SettingScreen"
 function App() {
 	return (
 		<>
-      <Routes>
-        <Route path="/" element={<LoginScreen/>}/>
-        <Route path="/home" element={<HomePage/>}/>
-        <Route path="/settings" element={<SettingScreen/>}/>
-      </Routes>
+			<Routes>
+				<Route path="/" element={<LoginScreen />} />
+				<Route path="/home" element={<HomePage />} />
+				<Route path="/settings" element={<SettingScreen />} />
+			</Routes>
 		</>
 	)
 }
