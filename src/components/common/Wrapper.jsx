@@ -1,15 +1,13 @@
 import React from "react"
 
-export default function Wrapper() {
+export default function Wrapper({ children }) {
 	return (
-		<div className="login-root">
+		<div className="theme-root">
 			<img
 				src="https://www.fint.vn/wp-content/uploads/2023/11/1626080287-12892745-fint-vn.png"
 				alt=""
 			/>
-			<div className="wrapper">
-                
-            </div>
+			<div className="wrapper">{children}</div>
 		</div>
 	)
 }

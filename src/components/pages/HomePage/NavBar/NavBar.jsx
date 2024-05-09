@@ -1,5 +1,6 @@
 import NavItems from "./navItems"
 import './NavBar.scss';
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
 	return (
@@ -33,10 +34,10 @@ const NavBar = () => {
 							</a>
 						</li>
 						<li className="nav__list-title active">
-							<a href="#">
+							<Link to="/">
 								<i className="fa-solid fa-arrow-right-from-bracket" />
 								<span className="nav__list-text">Logout</span>
-							</a>
+							</Link>
 						</li>
 					</ul>
 				</div>

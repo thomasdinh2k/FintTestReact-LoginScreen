@@ -8,7 +8,7 @@ $theme-orange-dark: linear-gradient(
 $theme-carrot: #f28d1c;
 $theme-blue: #0052a4;
 
-.login-root {
+.theme-root {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -42,7 +42,7 @@ $theme-blue: #0052a4;
 
 	.form-group {
 		// background-color: slategrey;
-		border-radius: 5px;
+		// border-radius: 5px;
 		margin-bottom: 1rem;
 		position: relative;
 		width: 50vw;
@@ -110,26 +110,7 @@ $theme-blue: #0052a4;
 		}
 
 		.login-button {
-			button {
-				background-image: $theme-orange;
-				padding: 10px 20px;
-				text-transform: uppercase;
-
-				background-size: 200% auto;
-				color: white;
-				box-shadow: 0 0 20px #eee;
-				border-radius: 10px;
-				display: block;
-				border: none;
-				cursor: pointer;
-				transition: 0.3s;
-				&:hover {
-					background-position: right center;
-					color: #fff;
-					text-decoration: none;
-					// text-transform: none;
-				}
-			}
+			
 		}
 	}
 
@@ -138,6 +119,32 @@ $theme-blue: #0052a4;
 		a {
 			color: $theme-blue;
 			text-decoration: none;
+		}
+	}
+
+	button.gradient-button {
+		background-image: $theme-orange;
+		padding: 10px 20px;
+		text-transform: uppercase;
+		
+		a{
+			color: white;
+			text-decoration: none;
+		}
+
+		background-size: 200% auto;
+		color: white;
+		box-shadow: 0 0 20px #eee;
+		border-radius: 10px;
+		display: block;
+		border: none;
+		cursor: pointer;
+		transition: 0.3s;
+		&:hover {
+			background-position: right center;
+			color: #fff;
+			text-decoration: none;
+			// text-transform: none;
 		}
 	}
 }
