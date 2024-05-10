@@ -28,7 +28,7 @@
 		color: var(--dark);
 	}
 
-	.nav__menu {
+	.nav__section {
 		/* background-color: red; */
 		margin: 10px;
 		border-top: 1px solid #cfcece;
@@ -65,7 +65,7 @@
 		transition: all 0.75s ease;
 	}
 
-	.nav__menu-title {
+	.nav__section-title {
 		padding: 20px;
 		font-size: 12px;
 		font-weight: 500;
@@ -228,7 +228,7 @@
 		display: none;
 	}
 
-	nav.mini p.nav__menu-title {
+	nav.mini p.nav__section-title {
 		/* background-color: #123; */
 		text-align: center;
 		font-size: 9.7px;
