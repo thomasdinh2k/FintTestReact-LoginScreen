@@ -3,19 +3,21 @@ import NavItems from "./NavItems/Index"
 
 export default function NavList({ items }) {
 	
-    
-    
-    return (
-        
-		<ul className="nav-list">
-			{items.map( (i, iIndex) => { 
-                
-                // console.log(i.subMenu);
+	console.log(items);
 
-                return (
-                    <NavItems key={iIndex} title={i.name} subMenu={i.subMenu}/>
-                )
-             })}
+	return (
+		<ul className="nav-list">
+			{items.map((i, iIndex) => {
+				return (
+					<NavItems
+						key={iIndex}
+						title={i.name}
+						icon={i.icon ?? "fa-solid fa-circle-question"}
+						subMenu={i.subMenu}
+						link={i.link ?? "#"}
+					/>
+				)
+			})}
 		</ul>
 	)
 }

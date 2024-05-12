@@ -1,5 +1,5 @@
 {
-	"Chinh": [
+	"Chính": [
 		{ "name": "Trang chủ", "icon": "fa-solid fa-house", "subMenu": [] },
 		{ "name": "Giới thiệu", "icon": "fa-solid fa-address-card", "subMenu": [] },
 		{
@@ -38,10 +38,17 @@
 			]
 		}
 	],
-	"Cai Dat": [
+	"hỏi đáp": [
 		{ "name": "Liên hệ", "icon": "fa-solid fa-phone", "subMenu": [] },
-		{ "name": "FAQ", "icon": "fa-solid fa-circle-question", "subMenu": [] },
-		{ "name": "Cài đặt",  "subMenu": [] },
-		{ "name": "Đăng xuất", "icon": "", "subMenu": [], "link": "/"}
+		{ "name": "FAQ", "icon": "fa-solid fa-circle-question", "subMenu": [] }
+	],
+	"Cài Đặt": [
+		{ "name": "Cài đặt", "icon": "fa-solid fa-gear", "subMenu": [] },
+		{
+			"name": "Đăng xuất",
+			"icon": "fa-solid fa-right-from-bracket",
+			"subMenu": [],
+			"link": "/"
+		}
 	]
 }

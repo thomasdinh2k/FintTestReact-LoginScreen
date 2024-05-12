@@ -2,17 +2,14 @@ import { Link } from "react-router-dom"
 import "./NavBar.scss"
 import NavSection from "./NavSection/Index"
 
-import navItem from  "../../../../data/nav-item.json"
+import navItem from "../../../../data/nav-item.json"
 
 const NavBar = () => {
-	
-
-	
 	return (
 		<>
 			<nav className="active">
 				{/* Nav Header */}
-				<div> 
+				<div>
 					<div className="nav-toggle">
 						<i className="arrow left" />
 					</div>
@@ -26,12 +23,9 @@ const NavBar = () => {
 						</p>
 					</div>
 				</div>
-
-				<NavSection title="Chính" items={navItem}/>
-				{/* <NavSection title="Setting"/> */}
-				
-
-				
+				{Object.entries(navItem).map(([menuName, items]) => (
+					<NavSection key={menuName} title={menuName} items={items}/>
+				))}
 			</nav>
 		</>
 	)

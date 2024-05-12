@@ -1,14 +1,11 @@
-import { fa42Group } from "@fortawesome/free-brands-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import React from "react"
+import { Link } from "react-router-dom"
 
-export default function NavItemTitle({title}) {
+export default function NavItemTitle({ title, icon, hasItem, link }) {
 	return (
-		<a href="#">
-			<FontAwesomeIcon icon={fa42Group}/>
-            
+		<Link to={link}>
+			<i className={icon}></i>
 			<span className="nav__list-text">{title}</span>
-			<i className="arrow down" />
-		</a>
+			{hasItem && <i className="arrow down" />}
+		</Link>
 	)
 }
