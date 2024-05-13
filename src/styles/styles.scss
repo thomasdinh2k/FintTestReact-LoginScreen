@@ -36,7 +36,7 @@
 	.form-group {
 		// background-color: slategrey;
 		// border-radius: 5px;
-		margin-bottom: 1rem;
+		margin-bottom: 1.25rem;
 		position: relative;
 		width: 50vw;
 		max-width: 600px;
@@ -55,7 +55,7 @@
 			height: 3rem;
 			width: 3rem;
 			border-radius: 5px 0 0 5px;
-			transition: 0.5s;
+			transition: all 2.5s ease;
 			svg {
 				filter: invert(1);
 			}
@@ -89,6 +89,8 @@
 			padding-left: 60px;
 			transition: all 0.5s ease;
 
+			
+
 			&:focus {
 				border-color: $theme-carrot;
 				outline: none;
@@ -98,7 +100,18 @@
 			&:focus + .pre-placeholder-icon {
 				background: $theme-orange-dark;
 			}
+
+			&.error{ // Change border-color on form error
+				box-shadow: 0 0 20px $theme-dark-red;
+				border-color: $theme-dark-red;
+			}
+
+			&.error + .pre-placeholder-icon {
+				background: linear-gradient(to right, #ff512f 0%, #ff253a 51%, #ff512f 100%);
+			}
 		}
+
+		
 	}
 
 	#form-3 {
