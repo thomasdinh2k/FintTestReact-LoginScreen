@@ -1,4 +1,4 @@
-import NavList from "./NavList/Index"
+import NavList from "./NavList"
 
 export default function NavSection({ title, items }) {
 	return (

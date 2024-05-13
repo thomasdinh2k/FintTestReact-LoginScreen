@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import "./NavBar.scss"
-import NavSection from "./NavSection/Index"
+import NavSection from "./NavSection"
 
 import navItem from "../../../../data/nav-item.json"
 

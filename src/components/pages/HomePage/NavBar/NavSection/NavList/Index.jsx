@@ -1,5 +1,5 @@
 import React from "react"
-import NavItems from "./NavItems/Index"
+import NavItems from "./NavItems"
 
 export default function NavList({ items }) {
 	
