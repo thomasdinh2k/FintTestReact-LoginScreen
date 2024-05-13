@@ -1,8 +1,8 @@
 import "./style.scss"
 
-export default function Button({type, children}) {
+export default function Button({ children, ...otherProperties }) {
 	return (
-		<button className="gradient-button" type={type}>
+		<button className="gradient-button" {...otherProperties}>
 			{children}
 		</button>
 	)

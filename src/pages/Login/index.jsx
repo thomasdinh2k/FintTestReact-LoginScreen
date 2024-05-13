@@ -2,12 +2,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { faLock } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
+import { useState } from "react"
 //
 import TextInputForm from "../../components/TextInput"
 import Wrapper from "../../components/Wrapper"
 import Button from "../../components/Button"
 
 export default function LoginScreen() {
+	const [username, setUsername] = useState("")
+	const [password, setPassword] = useState("")
+
+	const handleInputChange = (modifier, event) => {
+		if (modifier == "username") {
+			setUsername(event.target.value)
+		} else {
+			setPassword(event.target.value)
+		}
+	}
+
+	const handleSubmit = event => {
+		event.preventDefault()
+
+		console.log([username, password]);
+	}
+
 	return (
 		<Wrapper>
 			<div className="header">
@@ -19,6 +37,8 @@ export default function LoginScreen() {
 					placeholder="Tài khoản"
 					required={true}
 					icon={<FontAwesomeIcon icon={faUser} />}
+					value={username}
+					onChange={() => handleInputChange("username", event)}
 				/>
 
 				<TextInputForm
@@ -26,6 +46,8 @@ export default function LoginScreen() {
 					placeholder="Mật khẩu"
 					required={true}
 					icon={<FontAwesomeIcon icon={faLock} />}
+					value={password}
+					onChange={() => handleInputChange("password", event)}
 				/>
 
 				<div id="form-3" className="form-group">
@@ -37,10 +59,9 @@ export default function LoginScreen() {
 						</label>
 					</div>
 					<div className="login-button">
-						<Button type="submit">
-							<Link to="/home">Đăng nhập</Link>
+						<Button type="submit" onClick={(event) => handleSubmit(event)}>
+							Đăng nhập
 						</Button>
-						
 					</div>
 				</div>
 				<div id="form-4" className="form-group">
@@ -49,7 +70,9 @@ export default function LoginScreen() {
 						<Link to="/sign-up">Đăng ký</Link>
 					</div>
 					<div className="forgot">
-						<a href="#" style={{cursor:"not-allowed"}}>Quên mật khẩu</a>
+						<a href="#" style={{ cursor: "not-allowed" }}>
+							Quên mật khẩu
+						</a>
 					</div>
 				</div>
 			</form>

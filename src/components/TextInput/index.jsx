@@ -1,17 +1,14 @@
-export default function TextInputForm({
-	type,
-	name,
-	placeholder,
-	required,
-	icon
-}) {
+export default function TextInputForm({ icon, required, ...otherProperties }) {
 	return (
 		<div className="form-group">
 			<input
-				name={name}
-				type={type}
-				placeholder={placeholder}
 				className="form-control"
+				{...otherProperties}
+				// name={name}
+				// type={type}
+				// placeholder={placeholder}
+				// value={value}
+				// onChange={onChange}
 			/>
 
 			<div className={`pre-placeholder-icon ${required ? "required" : ""}`}>
