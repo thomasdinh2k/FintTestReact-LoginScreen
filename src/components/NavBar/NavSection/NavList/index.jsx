@@ -6,14 +6,14 @@ export default function NavList({ items }) {
 
 	return (
 		<ul className="nav-list">
-			{items.map((i, iIndex) => {
+			{items.map((item, index) => {
 				return (
 					<NavItems
-						key={iIndex}
-						title={i.name}
-						icon={i.icon ?? "fa-solid fa-circle-question"}
-						subMenu={i.subMenu}
-						link={i.link ?? "#"}
+						key={index}
+						title={item.name}
+						icon={item.icon ?? "fa-solid fa-circle-question"}
+						subMenu={item.subMenu}
+						link={item.link ?? "#"}
 					/>
 				)
 			})}
