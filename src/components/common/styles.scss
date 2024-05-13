@@ -48,6 +48,8 @@ $theme-blue: #0052a4;
 		width: 50vw;
 		max-width: 600px;
 
+
+
 		.pre-placeholder-icon {
 			display: flex;
 			align-items: center;
@@ -68,6 +70,16 @@ $theme-blue: #0052a4;
 			&:hover {
 				background-position: right center;
 			}
+
+			&.required::before{
+				content: "*";
+				position: absolute;
+				top: 10px;
+				left: -14px;
+				font-size: 1.5rem;
+				color: red;	
+			}
+			
 		}
 
 		&:hover {

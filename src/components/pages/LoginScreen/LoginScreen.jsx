@@ -1,4 +1,3 @@
-import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { faLock } from "@fortawesome/free-solid-svg-icons"
@@ -17,12 +16,14 @@ export default function LoginScreen() {
 				<TextInputForm
 					type="username"
 					placeholder="Tài khoản"
+					required={true}
 					icon={<FontAwesomeIcon icon={faUser} />}
 				/>
 
 				<TextInputForm
 					type="password"
 					placeholder="Mật khẩu"
+					required={true}
 					icon={<FontAwesomeIcon icon={faLock} />}
 				/>
 

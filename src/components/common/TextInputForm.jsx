@@ -7,7 +7,8 @@ export default function TextInputForm({
 	type,
 	name,
 	placeholder,
-	icon,
+	required,
+	icon
 }) {
 	return (
 		<div className="form-group">
@@ -18,7 +19,7 @@ export default function TextInputForm({
 				className="form-control"
 			/>
 
-			<div className="pre-placeholder-icon">
+			<div className={`pre-placeholder-icon ${required ? "required" : ""}`}>
 				{icon}
 			</div>
 		</div>
