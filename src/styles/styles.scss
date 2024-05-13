@@ -1,12 +1,5 @@
-$theme-orange: linear-gradient(to right, #ff512f 0%, #f09819 51%, #ff512f 100%);
-$theme-orange-dark: linear-gradient(
-	to right,
-	#e04627 0%,
-	#cc7a15 51%,
-	#e04627 100%
-);
-$theme-carrot: #f28d1c;
-$theme-blue: #0052a4;
+@import "./reset";
+@import "./variables";
 
 .theme-root {
 	display: flex;
@@ -120,10 +113,6 @@ $theme-blue: #0052a4;
 			}
 			// color: $theme-carrot;
 		}
-
-		.login-button {
-			
-		}
 	}
 
 	#form-4 {
@@ -133,51 +122,4 @@ $theme-blue: #0052a4;
 			text-decoration: none;
 		}
 	}
-
-	button.gradient-button {
-		background-image: $theme-orange;
-		padding: 10px 20px;
-		text-transform: uppercase;
-		
-		a{
-			color: white;
-			text-decoration: none;
-		}
-
-		background-size: 200% auto;
-		color: white;
-		box-shadow: 0 0 20px #eee;
-		border-radius: 10px;
-		display: block;
-		border: none;
-		cursor: pointer;
-		transition: 0.3s;
-		&:hover {
-			background-position: right center;
-			color: #fff;
-			text-decoration: none;
-			// text-transform: none;
-		}
-	}
 }
-
-// Button Components
-// .btn-grad {
-//     background-image: linear-gradient(to right, #FF512F 0%, #F09819  51%, #FF512F  100%);
-//     margin: 10px;
-//     padding: 15px 45px;
-//     text-align: center;
-//     text-transform: uppercase;
-//     transition: 0.5s;
-//     background-size: 200% auto;
-//     color: white;
-//     box-shadow: 0 0 20px #eee;
-//     border-radius: 10px;
-//     display: block;
-//   }
-
-//   .btn-grad:hover {
-//     background-position: right center; /* change the direction of the change here */
-//     color: #fff;
-//     text-decoration: none;
-//   }

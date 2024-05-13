@@ -6,10 +6,10 @@ export default function NavItemSubMenu({ subMenu, isOpen }) {
 	// nav__list-submenu ${isOpen && "show"}}
 	return (
 		<ul className={`nav__list-submenu ${isOpen ? "show" : ""}`}>
-				{subMenu.map((subI, sIndex) => {
+				{subMenu.map((subItem, index) => {
 					return (
-						<li key={sIndex}>
-							<a href="#"> {subI.name} </a>
+						<li key={index}>
+							<a href="#"> {subItem.name} </a>
 						</li>
 					)
 				})}

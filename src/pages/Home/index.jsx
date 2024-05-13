@@ -1,5 +1,5 @@
 import React from "react"
-import NavBar from "./NavBar/Index"
+import NavBar from "../../components/NavBar"
 import "./styles.scss"
 
 export default function HomePage() {

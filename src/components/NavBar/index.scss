@@ -1,3 +1,5 @@
+@import "../../styles/variables";
+
 .homepage-root {
 	.head {
 		height: 120px;
@@ -5,10 +7,10 @@
 	}
 
 	nav {
-		display: none;
+		// display: none;
 		position: relative;
 		top: 0;
-		min-height: 100svh;
+		min-height: 100vh;
 		/* max-height: 100vh; */
 		background-color: var(--white);
 		/* height: 100%; */
@@ -17,15 +19,26 @@
 		width: 100%;
 
 		transition: all 0.4s;
-	}
 
-	nav.active {
-		display: block;
-	}
+		&.active {
+			display: block;
+		}
 
-	nav .head {
-		background: var(--white);
-		color: var(--dark);
+		.head {
+			background: var(--white);
+			color: var(--dark);
+		}
+
+		&.closed {
+			// Using negative margin left to pull the nav all the way outside of viewport, hence hide it
+			margin-left: $nav-closed-offset-position * -1;
+			.nav-toggle {
+				// Position nav-toggle button when nav is closed
+				left: $nav-closed-offset-position + 33px;
+				width: 80px;
+				height: 80px;
+			}
+		}
 	}
 
 	.nav__section {
@@ -41,12 +54,13 @@
 		/* font-size: 2rem; */
 
 		margin: 0;
+		margin-left: 20px;
 		list-style: none;
 	}
 
 	.nav-list li {
-		padding: 0.8rem 0.3rem 0.7rem 0.3rem;
-		margin-left: 23px;
+		padding: 12px 4px;
+		// margin-left: 23px;
 		position: relative;
 		border-radius: 8px;
 	}
@@ -104,11 +118,11 @@
 	.nav__list-submenu li {
 		display: none;
 		flex-direction: column;
-		gap: 0.35rem;
 	}
 
 	.show > li {
-		display: flex;
+		display: block;
+		padding-block: 10px;
 	}
 
 	.nav__list-submenu li a {
@@ -175,82 +189,23 @@
 		pointer-events: auto;
 
 		transition: all 0.5s;
-	}
 
-	nav.closed .nav-toggle {
-		left: 333px;
-		width: 80px;
-		height: 80px;
-	}
+		&.active {
+			left: 0;
+		}
 
-	.nav-toggle.active {
-		left: 0;
-	}
+		&:hover {
+			background-color: var(--menu);
+		}
 
-	nav.closed {
-		margin-left: -300px;
-	}
+		// &.off {
+		// 	position: relative;
+		// 	left: 20px;
+		// 	top: 33px;
+		// }
 
-	.nav-toggle:hover {
-		/* background-color: rgba(250, 128, 114); */
-		background-color: var(--menu);
-	}
-
-	.nav-toggle.off {
-		position: relative;
-		left: 20px;
-		top: 33px;
-	}
-
-	.nav-toggle .arrow {
-		border-width: 0 3px 3px 0;
-	}
-
-	/* Mini version */
-	nav.mini {
-		width: 0;
-	}
-
-	nav.mini .arrow.left {
-		transform: rotate(315deg);
-	}
-
-	nav .head p.mini {
-		display: none;
-	}
-
-	nav.mini .head p.mini {
-		display: inline-block;
-	}
-
-	nav.mini .head h1,
-	nav.mini .head p {
-		display: none;
-	}
-
-	nav.mini p.nav__section-title {
-		/* background-color: #123; */
-		text-align: center;
-		font-size: 9.7px;
-	}
-
-	nav.mini span.nav__list-text {
-		display: none;
-	}
-
-	nav.mini ul.nav__list-submenu li {
-		width: 130px;
-		background-color: var(--menu);
-	}
-
-	nav.mini .nav__list-title:hover {
-		/* background: var(--menu) */
-		background: transparent;
-
-		/* padding: 12px 8px; */
-	}
-
-	nav.mini .nav__list-title a i {
-		font-size: 25px;
+		.arrow {
+			border-width: 0 3px 3px 0;
+		}
 	}
 }

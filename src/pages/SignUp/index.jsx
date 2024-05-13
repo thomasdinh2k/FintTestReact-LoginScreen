@@ -1,18 +1,14 @@
-import Wrapper from "../../common/Wrapper"
+import Wrapper from "../../components/Wrapper"
 import "./styles.scss"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {
-	faInbox,
-	faLock,
-	faUser,
-} from "@fortawesome/free-solid-svg-icons"
-import TextInputForm from "../../common/TextInputForm"
-import Button from "../../common/Button"
+import { faInbox, faLock, faUser } from "@fortawesome/free-solid-svg-icons"
+import TextInputForm from "../../components/TextInput"
+import Button from "../../components/Button"
 import { Link } from "react-router-dom"
 
 export default function SignUpScreen() {
 	return (
-		<div className="sign-up">
+		<div className="SignUpScreen">
 			<Wrapper>
 				<div className="header">
 					<h2>Mời đăng ký</h2>
@@ -41,7 +37,7 @@ export default function SignUpScreen() {
 
 					<div id="CTA-buttons">
 						<Button>Đăng ký</Button>
-            <Link to="/">Quay lại đăng nhập</Link>
+						<Link to="/">Quay lại đăng nhập</Link>
 					</div>
 				</form>
 			</Wrapper>
