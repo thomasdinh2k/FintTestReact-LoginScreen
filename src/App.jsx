@@ -1,10 +1,9 @@
-import "./App.css"
-import "./components/common/styles.scss"
+import "./styles/styles.scss"
 import { Route, Routes } from "react-router-dom"
-import HomePage from "./components/pages/HomePage"
-import LoginScreen from "./components/pages/LoginScreen"
-import SettingScreen from "./components/pages/SettingScreen"
-import SignUpScreen from "./components/pages/SignUpScreen"
+import HomePage from "./pages/Home"
+import LoginScreen from "./pages/Login"
+import SettingScreen from "./pages/Setting"
+import SignUpScreen from "./pages/SignUp"
 function App() {
 	return (
 		<>

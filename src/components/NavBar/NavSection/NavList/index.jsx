@@ -1,9 +1,8 @@
-import React from "react"
 import NavItems from "./NavItems"
 
 export default function NavList({ items }) {
 	
-	console.log(items);
+	// console.log(items);
 
 	return (
 		<ul className="nav-list">

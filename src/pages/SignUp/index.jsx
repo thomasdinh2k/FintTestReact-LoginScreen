@@ -1,4 +1,4 @@
-import Wrapper from "../../common/Wrapper"
+import Wrapper from "../../components/Wrapper"
 import "./styles.scss"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
@@ -6,8 +6,8 @@ import {
 	faLock,
 	faUser,
 } from "@fortawesome/free-solid-svg-icons"
-import TextInputForm from "../../common/TextInputForm"
-import Button from "../../common/Button"
+import TextInputForm from "../../components/TextInput"
+import Button from "../../components/Button"
 import { Link } from "react-router-dom"
 
 export default function SignUpScreen() {

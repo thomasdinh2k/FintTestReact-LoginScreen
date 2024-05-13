@@ -1,11 +1,11 @@
-import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { faLock } from "@fortawesome/free-solid-svg-icons"
-import TextInputForm from "../../common/TextInputForm"
-import Wrapper from "../../common/Wrapper"
-import Button from "../../common/Button"
 import { Link } from "react-router-dom"
+//
+import TextInputForm from "../../components/TextInput"
+import Wrapper from "../../components/Wrapper"
+import Button from "../../components/Button"
 
 export default function LoginScreen() {
 	return (
