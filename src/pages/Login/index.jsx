@@ -6,10 +6,11 @@ import { useState, useEffect } from "react"
 import TextInputForm from "../../components/TextInput"
 import Wrapper from "../../components/Wrapper"
 import Button from "../../components/Button"
+import { minCharRequired } from "../../utils/formValidationRuleset"
 
 export default function LoginScreen() {
-	// Validation Rules:
-	const minCharRequired = 3
+	// Validation Rules
+	
 
 	const [formValue, setFormValue] = useState({
 		username: { value: "", error: false, err_msg: "" },
@@ -125,7 +126,7 @@ export default function LoginScreen() {
 			<div className="header">
 				<h2>Mời đăng nhập</h2>
 			</div>
-			<form className="login-form" action="#">
+			<form action="#">
 				<TextInputForm
 					icon={<FontAwesomeIcon icon={faUser} />}
 					required={true}
