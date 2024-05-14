@@ -1,26 +1,51 @@
 @import "../../styles/variables";
 
 button.gradient-button {
-    background-image: $theme-orange;
-    padding: 10px 20px;
-    text-transform: uppercase;
-    
-    a{
-        color: white;
-        text-decoration: none;
-    }
+	background-image: $theme-orange;
+	padding: 10px 20px;
+	text-transform: uppercase;
 
-    background-size: 200% auto;
-    color: white;
-    box-shadow: 0 0 20px #eee;
-    border-radius: 10px;
-    display: block;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s;
-    &:hover {
-        background-position: right center;
-        color: #fff;
-        text-decoration: none;
-    }
+	a {
+		color: white;
+		text-decoration: none;
+	}
+
+	background-size: 200% auto;
+	color: white;
+	box-shadow: 0 0 20px #eee;
+	border-radius: 10px;
+	display: block;
+	border: none;
+	cursor: pointer;
+	transition: 0.3s;
+	&:hover {
+		background-position: right center;
+		color: #fff;
+		text-decoration: none;
+	}
+}
+
+button.gradient-button.disabled {
+	background-image: linear-gradient(
+		to right,
+		#16222a 0%,
+		#3a6073 51%,
+		#16222a 100%
+	);
+	// margin: 10px;
+	padding: 5px 20px;
+	text-align: center;
+	text-transform: uppercase;
+	transition: 0.5s;
+	background-size: 200% auto;
+	color: white;
+	box-shadow: 0 0 20px #eee;
+	border-radius: 10px;
+	display: block;
+    cursor: not-allowed;
+	&:hover {
+		background-position: right center; /* change the direction of the change here */
+		color: #fff;
+		text-decoration: none;
+	}
 }
