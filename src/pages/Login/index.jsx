@@ -99,7 +99,7 @@ export default function LoginScreen() {
 	}
 
 	return (
-		<Wrapper>
+		<Wrapper moprh={false}>
 			<div className="header">
 				<h2>Mời đăng nhập</h2>
 			</div>
