@@ -8,6 +8,7 @@ import Wrapper from "../../components/Wrapper"
 import Button from "../../components/Button"
 
 export default function LoginScreen() {
+	// Validation Rules:
 	const minCharRequired = 3
 
 	const [formValue, setFormValue] = useState({
@@ -32,7 +33,6 @@ export default function LoginScreen() {
 	}, [formValue])
 
 	const handleInputChange = (identifier, value) => {
-
 		if (value.length > 0) {
 			setIsStartTyping(true)
 		}
@@ -71,7 +71,7 @@ export default function LoginScreen() {
 		}))
 	}
 
-	console.log(formValue)
+	// console.log(formValue)
 
 	const handleSubmit = event => {
 		event.preventDefault()
@@ -80,7 +80,6 @@ export default function LoginScreen() {
 			// console.log(formItem);
 			var formLabel = formItem[0]
 			var formObject = formItem[1]
-			console.log([formLabel, formObject])
 
 			// Display Error: Min char count required
 			if (formObject.value.length < minCharRequired) {
@@ -96,10 +95,33 @@ export default function LoginScreen() {
 				}))
 			}
 		})
+
+		if (!isError) {
+			console.log("Sending HTTP request")
+		}
+	}
+
+	const handleOnBlur = identifier => {
+		var inputValue = formValue[identifier].value
+		// Display Error: Min char count required
+		if (inputValue.length < minCharRequired && inputValue.length > 0) {
+			setFormValue(prevState => ({
+				...prevState,
+				[identifier]: {
+					...prevState[identifier],
+					error: true,
+					err_msg: `${
+						identifier.charAt(0).toUpperCase() + identifier.slice(1)
+					} quá ngắn (${inputValue.length}/${minCharRequired} ký tự)`,
+				},
+			}))
+		}
+
+		// console.log(`OnBlur ${identifier}`, formValue[identifier])
 	}
 
 	return (
-		<Wrapper moprh={false}>
+		<Wrapper moprh={true}>
 			<div className="header">
 				<h2>Mời đăng nhập</h2>
 			</div>
@@ -113,6 +135,9 @@ export default function LoginScreen() {
 					placeholder="Tài khoản"
 					value={formValue.username.value}
 					onChange={event => handleInputChange("username", event.target.value)}
+					onBlur={() => {
+						handleOnBlur("username")
+					}}
 				/>
 
 				<TextInputForm
@@ -124,6 +149,9 @@ export default function LoginScreen() {
 					placeholder="Mật khẩu"
 					value={formValue.password.value}
 					onChange={event => handleInputChange("password", event.target.value)}
+					onBlur={() => {
+						handleOnBlur("password")
+					}}
 				/>
 
 				<div id="form-3" className="form-group">
