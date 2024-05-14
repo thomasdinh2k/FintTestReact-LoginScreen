@@ -1,100 +1,101 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 //
 import TextInputForm from "../../components/TextInput"
 import Wrapper from "../../components/Wrapper"
 import Button from "../../components/Button"
-import TextInputError from "../../components/TextInput/TextInputError"
 
 export default function LoginScreen() {
 	const minCharRequired = 3
 
-	const [username, setUsername] = useState({
-		value: "",
-		error: false,
-		err_msg: "",
+	const [formValue, setFormValue] = useState({
+		username: { value: "", error: false, err_msg: "" },
+		password: { value: "", error: false, err_msg: "" },
 	})
-	const [password, setPassword] = useState({
-		value: "",
-		error: false,
-		err_msg: "",
-	})
+
 	const [isStartTyping, setIsStartTyping] = useState(false)
 
-	const clearErrMsg = modifier => {
-		if (modifier == "username") {
-			setUsername(prevState => ({
-				...prevState,
-				err_msg: "",
-				error: false,
-			}))
+	// If state: true then disable the submit button
+	const [isError, setIsError] = useState(false)
+	// Function to check if any error then change `isError` state
+	function handleErrorState() {
+		if (formValue.username.error || formValue.password.error) {
+			setIsError(true)
 		} else {
-			setPassword(prevState => ({
-				...prevState,
-				err_msg: "",
-				error: false,
-			}))
+			setIsError(false)
 		}
 	}
+	useEffect(() => {
+		handleErrorState()
+	}, [formValue])
 
-	const handleInputChange = (modifier, event) => {
-		if (event.target.value.length > 0) {
+	const handleInputChange = (identifier, value) => {
+
+		if (value.length > 0) {
 			setIsStartTyping(true)
 		}
 
 		if (isStartTyping) {
-			if (event.target.value.length == 0) {
-				if (modifier == "username") {
-					setUsername(prevState => ({
-						...prevState,
-						err_msg: "Vui lòng nhập username!",
+			if (value.length == 0) {
+				// Trigger when user clear input
+				setFormValue(prevState => ({
+					...prevState,
+					[identifier]: {
+						...prevState[identifier],
 						error: true,
-					}))
-				} else {
-					setPassword(prevState => ({
-						...prevState,
-						err_msg: "Vui lòng nhập mật khẩu!",
-						error: true,
-					}))
-				}
-			} else if (event.target.value.length > minCharRequired) {
-				clearErrMsg(modifier)
+						err_msg: `Vui lòng không để trống ${
+							identifier.charAt(0).toUpperCase() + identifier.slice(1)
+						} !`,
+					},
+				}))
+			}
+
+			if (value.length >= minCharRequired) {
+				// De-trigger when user input enough character
+				setFormValue(prevState => ({
+					...prevState,
+					[identifier]: {
+						...prevState[identifier],
+						error: false,
+						err_msg: null,
+					},
+				}))
 			}
 		}
 
-		if (modifier == "username") {
-			setUsername(prevState => ({ ...prevState, value: event.target.value }))
-		} else {
-			setPassword(prevState => ({ ...prevState, value: event.target.value }))
-		}
+		setFormValue(prevState => ({
+			...prevState,
+			[identifier]: { ...prevState[identifier], value: value },
+		}))
 	}
+
+	console.log(formValue)
 
 	const handleSubmit = event => {
 		event.preventDefault()
 
-		if (username.value.length < minCharRequired) {
-			setUsername(prevState => ({
-				...prevState,
-				error: true,
-				err_msg: `Username cần phải từ ${minCharRequired} ký tự trở lên`,
-			}))
-		} else if (username.value.length >= minCharRequired) {
-			setUsername(prevState => ({ ...prevState, error: false }))
-		}
+		Object.entries(formValue).forEach(formItem => {
+			// console.log(formItem);
+			var formLabel = formItem[0]
+			var formObject = formItem[1]
+			console.log([formLabel, formObject])
 
-		if (password.value.length < minCharRequired) {
-			setPassword(prevState => ({
-				...prevState,
-				error: true,
-				err_msg: `Mật khẩu cần phải từ ${minCharRequired} ký tự trở lên`,
-			}))
-		} else if (username.value.length >= minCharRequired) {
-			setPassword(prevState => ({ ...prevState, error: false }))
-		}
-
-		console.log([username, password])
+			// Display Error: Min char count required
+			if (formObject.value.length < minCharRequired) {
+				setFormValue(prevState => ({
+					...prevState,
+					[formLabel]: {
+						...prevState[formLabel],
+						error: true,
+						err_msg: `${
+							formLabel.charAt(0).toUpperCase() + formLabel.slice(1)
+						} quá ngắn (${formObject.value.length}/${minCharRequired} ký tự)`,
+					},
+				}))
+			}
+		})
 	}
 
 	return (
@@ -106,25 +107,23 @@ export default function LoginScreen() {
 				<TextInputForm
 					icon={<FontAwesomeIcon icon={faUser} />}
 					required={true}
-					error={username.error}
-					errorMsg={username.err_msg}
-					
+					error={formValue.username.error}
+					errorMsg={formValue.username.err_msg}
 					type="username"
 					placeholder="Tài khoản"
-					value={username.value}
-					onChange={() => handleInputChange("username", event)}
+					value={formValue.username.value}
+					onChange={event => handleInputChange("username", event.target.value)}
 				/>
 
 				<TextInputForm
 					icon={<FontAwesomeIcon icon={faLock} />}
 					required={true}
-					error={password.error}
-					errorMsg={password.err_msg}
-					
+					error={formValue.password.error}
+					errorMsg={formValue.password.err_msg}
 					type="password"
 					placeholder="Mật khẩu"
-					value={password.value}
-					onChange={() => handleInputChange("password", event)}
+					value={formValue.password.value}
+					onChange={event => handleInputChange("password", event.target.value)}
 				/>
 
 				<div id="form-3" className="form-group">
@@ -136,7 +135,11 @@ export default function LoginScreen() {
 						</label>
 					</div>
 					<div className="login-button">
-						<Button type="submit" onClick={event => handleSubmit(event)}>
+						<Button
+							type="submit"
+							onClick={event => handleSubmit(event)}
+							error={isError}
+						>
 							Đăng nhập
 						</Button>
 					</div>

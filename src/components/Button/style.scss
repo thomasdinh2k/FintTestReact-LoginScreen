@@ -17,7 +17,7 @@ button.gradient-button {
 	display: block;
 	border: none;
 	cursor: pointer;
-	transition: 0.3s;
+	transition: all 0.3s;
 	&:hover {
 		background-position: right center;
 		color: #fff;
@@ -33,7 +33,7 @@ button.gradient-button.disabled {
 		#16222a 100%
 	);
 	// margin: 10px;
-	padding: 5px 20px;
+	// padding: 5px 20px;
 	text-align: center;
 	text-transform: uppercase;
 	transition: 0.5s;
