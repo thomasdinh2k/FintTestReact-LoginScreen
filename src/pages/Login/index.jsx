@@ -3,10 +3,10 @@ import { faUser, faLock } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 //
-import TextInputForm from "../../components/TextInput"
+import TextInputForm from "../../components/TextInputForm"
 import Wrapper from "../../components/Wrapper"
 import Button from "../../components/Button"
-import { minCharRequired } from "../../utils/formValidationRuleset"
+import { minUsrCharRequired } from "../../utils/formValidationRuleset"
 
 export default function LoginScreen() {
 	// Validation Rules

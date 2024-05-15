@@ -8,9 +8,10 @@ import {
 	faPhone,
 	faUser,
 } from "@fortawesome/free-solid-svg-icons"
-import TextInputForm from "../../components/TextInput"
+import TextInputForm from "../../components/TextInputForm"
 import Button from "../../components/Button"
 import { Link } from "react-router-dom"
+import { minUsrCharRequired } from "../../utils/formValidationRuleset"
 
 export default function SignUpScreen() {
 	const handleInputChange = (identifier, value) => {
@@ -42,7 +43,56 @@ export default function SignUpScreen() {
 			number: false,
 			length: false,
 			special: false,
+			isAllValid: false,
 		})
+
+	// If allClear, then the form is ready to be submitted
+	const [allClear, setAllClear] = useState(false)
+
+	// Handle Blur
+	const handleBlur = identifier => {
+		const clearErrMsg = identifier => {
+			setFormValue(prevState => ({
+				...prevState,
+				[identifier]: {
+					...prevState[identifier],
+					error: false,
+					err_msg: ``,
+				},
+			}))
+		}
+
+		switch (identifier) {
+			case "username":
+				if (formValue.username.value.length <= minUsrCharRequired) {
+					console.log("username fail!")
+					setFormValue(prevState => ({
+						...prevState,
+						[identifier]: {
+							...prevState[identifier],
+							error: true,
+							err_msg: `Tài khoản phải có > ${minUsrCharRequired} ký tự`,
+						},
+					}))
+				} else { clearErrMsg(identifier) }
+				break
+
+			case "re-pwd":
+				if (formValue.password.value !== formValue["re-pwd"].value) {
+					setFormValue(prevState => ({
+						...prevState,
+						[identifier]: {
+							...prevState[identifier],
+							error: true,
+							err_msg: `Không khớp`,
+						},
+					}))
+				} else { clearErrMsg(identifier) }
+				break
+			default:
+				break
+		}
+	}
 
 	// Using Regex for Pwd validation
 	const validateSignUpPassword = password => {
@@ -56,11 +106,25 @@ export default function SignUpScreen() {
 
 		const newValidationStatus = {}
 
+		var validCount = 0 // Check if all of criteria is valid
+
 		validationRules.forEach(criteria => {
-			newValidationStatus[criteria.key] = criteria.regex.test(password)
+			if (criteria.regex.test(password)) {
+				newValidationStatus[criteria.key] = criteria.regex.test(password)
+				validCount++
+			}
 		})
 
 		setSignUpPasswordValidationStatus(newValidationStatus)
+
+		// Check if all valid
+		var isAllValid = validCount == validationRules.length
+		setSignUpPasswordValidationStatus(prevState => ({
+			...prevState,
+			isAllValid: isAllValid,
+		}))
+
+		console.log(signUpPasswordValidationStatus)
 	}
 
 	return (
@@ -73,7 +137,8 @@ export default function SignUpScreen() {
 					<TextInputForm
 						name="username"
 						type="input"
-						placeholder="Tài khoản"
+						placeholder={`Tài khoản (tối thiểu ${minUsrCharRequired} ký tự)`}
+						min={minUsrCharRequired}
 						required={true}
 						error={formValue.username.error}
 						errorMsg={formValue.username.err_msg}
@@ -82,6 +147,7 @@ export default function SignUpScreen() {
 						onChange={event =>
 							handleInputChange("username", event.target.value)
 						}
+						onBlur={() => handleBlur("username")}
 					/>
 
 					<TextInputForm
@@ -98,6 +164,8 @@ export default function SignUpScreen() {
 						onChange={event =>
 							handleInputChange("password", event.target.value)
 						}
+						isValid={signUpPasswordValidationStatus.isAllValid}
+						onBlur={() => handleBlur("password")}
 					/>
 
 					<TextInputForm
@@ -110,6 +178,11 @@ export default function SignUpScreen() {
 						errorMsg={formValue["re-pwd"].err_msg}
 						value={formValue["re-pwd"].value}
 						onChange={event => handleInputChange("re-pwd", event.target.value)}
+						isValid={
+							signUpPasswordValidationStatus.isAllValid &&
+							formValue.password.value == formValue["re-pwd"].value
+						}
+						onBlur={() => handleBlur("re-pwd")}
 					/>
 
 					<div className="divider"></div>
@@ -123,6 +196,9 @@ export default function SignUpScreen() {
 						error={formValue.email.error}
 						errorMsg={formValue.email.err_msg}
 						onChange={event => handleInputChange("email", event.target.value)}
+						onBlur={() => {
+							handleBlur("email")
+						}}
 					/>
 
 					<TextInputForm
@@ -134,10 +210,13 @@ export default function SignUpScreen() {
 						error={formValue.phone.error}
 						errorMsg={formValue.phone.err_msg}
 						onChange={event => handleInputChange("phone", event.target.value)}
+						onBlur={() => {
+							handleBlur("phone")
+						}}
 					/>
 
 					<div id="CTA-buttons">
-						<Button>Đăng ký</Button>
+						<Button error={!allClear}>Đăng ký</Button>
 						<Link to="/">Quay lại đăng nhập</Link>
 					</div>
 				</form>

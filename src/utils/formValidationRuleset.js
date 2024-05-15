@@ -1,4 +1,4 @@
-export const minCharRequired = 5
+export const minUsrCharRequired = 5
 export const maxCharUsername = 15
 export const maxCharPassword = 20
 export const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/

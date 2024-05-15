@@ -59,7 +59,7 @@
         &:focus {
             border-color: $theme-carrot;
             outline: none;
-            box-shadow: 0 0 8px $theme-carrot;
+            box-shadow: 0 0 4px $theme-carrot;
         }
 
         &:focus + .pre-placeholder-icon {
@@ -71,14 +71,23 @@
         // }
 
         &.error{ // Change border-color on form error
-            box-shadow: 0 0 5px $theme-dark-red;
+            box-shadow: 15px 0px 0px $theme-dark-red;
+            // box-shadow: 0 0 5px $theme-dark-red;
+            
             // border-color: $theme-dark-red;
         }
 
         &.error + .pre-placeholder-icon {
             background: linear-gradient(to right, #ff512f 0%, #ff253a 51%, #ff512f 100%);
         }
-    }
 
-    
+        &.valid{ // Change border-color on form error
+            box-shadow: 0 0 5px $theme-green;
+            border-color: $theme-green;
+        }
+
+        &.valid + .pre-placeholder-icon {
+            background: #27ae60;
+        }
+    }
 }

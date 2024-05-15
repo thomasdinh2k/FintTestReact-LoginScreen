@@ -7,6 +7,7 @@ export default function TextInputForm({
 	required,
 	error,
 	errorMsg,
+	isValid,
 	validation_type,
 	validation_status,
 	...otherProperties
@@ -14,13 +15,9 @@ export default function TextInputForm({
 	return (
 		<div className="form-group">
 			<input
-				className={`form-control ${error ? "error" : ""}`}
+				className={`form-control ${error ? "error" : ""} ${isValid ? "valid" : ""}`}
 				required={required}
 				{...otherProperties}
-				// type={type}
-				// placeholder={placeholder}
-				// value={value}
-				// onChange={onChange}
 			/>
 
 			<div className={`pre-placeholder-icon ${required ? "required" : ""}`}>
