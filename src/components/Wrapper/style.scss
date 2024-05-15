@@ -10,7 +10,7 @@
         justify-content: center;
         display: inline-flex;
         flex-direction: row;
-        opacity: .5;
+        opacity: .25;
         z-index: -1;
         filter: blur(90px);
         overflow: hidden;
@@ -20,7 +20,7 @@
             position: relative;
             border-radius: 100%;
             background-color: $theme-dark-red;
-            animation: floatOne 6s infinite;
+            animation: floatOne 15s infinite;
         }
         .bg-shape-2 {
             width: 400px;
@@ -28,7 +28,7 @@
             position: relative;
             border-radius: 100%;
             background-color: $theme-carrot;
-            animation: floatTwo 7s infinite
+            animation: floatTwo 15s infinite
         }
         .bg-shape-3 {
             width: 400px;
@@ -38,7 +38,7 @@
             background-color: $theme-blue;
             // top: 50%;
             // left: 50%;
-            animation: floatThree 10s infinite
+            animation: floatThree 15s infinite
         }
     }
 
