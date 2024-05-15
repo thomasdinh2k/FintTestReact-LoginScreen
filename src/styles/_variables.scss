@@ -1,0 +1,20 @@
+:root {
+	--dark: rgb(62, 92, 115);
+	--black: #123;
+	--white: rgb(255, 255, 255);
+	--menu: #e8e5e5;
+}
+
+$theme-orange: linear-gradient(to right, #ff512f 0%, #f09819 51%, #ff512f 100%);
+$theme-orange-dark: linear-gradient(
+	to right,
+	#e04627 0%,
+	#cc7a15 51%,
+	#e04627 100%
+);
+$theme-dark-red: #e04627;
+$theme-carrot: #f28d1c;
+$theme-blue: #0052a4;
+$theme-green: #27ae60;
+
+$nav-closed-offset-position: 300px;

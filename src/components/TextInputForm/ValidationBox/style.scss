@@ -1,0 +1,39 @@
+@import "../../../styles/variables";
+
+.validation_box {
+	margin-top: 20px;
+    p {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		padding: 5px 17px;
+		font-size: 1rem;
+
+        b {
+            margin-left: 5px;
+        }
+		
+        &.invalid {
+			color: #e04627;
+
+			color: $theme-dark-red;
+			b {
+				color: #a3321c;
+			}
+		}
+
+        &.valid {
+            color: $theme-green;
+        }
+	}
+
+	h3 {
+		font-size: 15px;
+	}
+
+	svg {
+		margin-right: 5px;
+		width: 25px;
+		height: 20px;
+	}
+}
