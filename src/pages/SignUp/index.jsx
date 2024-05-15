@@ -18,20 +18,6 @@ import {
 } from "../../utils/formValidationRuleset"
 
 export default function SignUpScreen() {
-	const handleInputChange = (identifier, value) => {
-		setFormValue(prevState => ({
-			...prevState,
-			[identifier]: {
-				...prevState[identifier],
-				value: value,
-			},
-		}))
-
-		if (identifier == "password") {
-			validateSignUpPassword(value)
-		}
-	}
-
 	const [formValue, setFormValue] = useState({
 		"username": { value: "", error: false, err_msg: "" },
 		"password": { value: "", error: false, err_msg: "" },
@@ -39,6 +25,9 @@ export default function SignUpScreen() {
 		"email": { value: "", error: false, err_msg: "" },
 		"phone": { value: "", error: false, err_msg: "" },
 	})
+
+	// If allClear, then the form is ready to be submitted
+	const [allClear, setAllClear] = useState(false)
 
 	const [signUpPasswordValidationStatus, setSignUpPasswordValidationStatus] =
 		useState({
@@ -50,94 +39,57 @@ export default function SignUpScreen() {
 			isAllValid: false,
 		})
 
-	
+	const setErrMsg = (identifier, msg) => {
+		setFormValue(prevState => ({
+			...prevState,
+			[identifier]: {
+				...prevState[identifier],
+				error: true,
+				err_msg: msg,
+			},
+		}))
+	}
 
-	// If allClear, then the form is ready to be submitted
-	const [allClear, setAllClear] = useState(false)
+	const clearErrMsg = identifier => {
+		setFormValue(prevState => ({
+			...prevState,
+			[identifier]: {
+				...prevState[identifier],
+				error: false,
+				err_msg: ``,
+			},
+		}))
+	}
 
-	// Handle Blur
-	const handleBlur = identifier => {
-		const setErrMsg = (identifier, msg) => {
-			setFormValue(prevState => ({
-				...prevState,
-				[identifier]: {
-					...prevState[identifier],
-					error: true,
-					err_msg: msg,
-				},
-			}))
+	// Form Fields Validation Check
+	const userNameValidation = value => {
+		if (value.length <= minUsrCharRequired) {
+			setErrMsg("username", `Tài khoản phải có > ${minUsrCharRequired} ký tự`)
+		} else {
+			clearErrMsg("username")
 		}
+	}
 
-		const clearErrMsg = identifier => {
-			setFormValue(prevState => ({
-				...prevState,
-				[identifier]: {
-					...prevState[identifier],
-					error: false,
-					err_msg: ``,
-				},
-			}))
+	const emailValidation = value => {
+		let regexResult = emailRegex.test(value)
+		if (!regexResult) {
+			setErrMsg("email", "Hãy nhập email đúng định dạng [someone@example.com] ")
+		} else {
+			clearErrMsg("email")
 		}
+	}
 
-		switch (identifier) {
-			case "username":
-				if (formValue.username.value.length <= minUsrCharRequired) {
-					setErrMsg(
-						identifier,
-						`Tài khoản phải có > ${minUsrCharRequired} ký tự`
-					)
-				} else {
-					clearErrMsg(identifier)
-				}
-				break
-
-			case "password":
-				if (!signUpPasswordValidationStatus.isAllValid) {
-					setErrMsg(identifier, "Mật khẩu chưa hợp lệ, vui lòng kiểm tra lại")
-				} else {
-					clearErrMsg(identifier)
-				}
-
-				break
-
-			case "re-pwd":
-				if (formValue.password.value !== formValue["re-pwd"].value) {
-					setErrMsg(identifier, "Mật khẩu nhập lại không khớp")
-				} else {
-					clearErrMsg(identifier)
-				}
-				break
-
-			case "email":
-				{
-					let regexResult = emailRegex.test(formValue.email.value)
-					if (!regexResult) {
-						setErrMsg(
-							identifier,
-							"Hãy nhập email đúng định dạng [someone@example.com] "
-						)
-					} else {
-						clearErrMsg(identifier)
-					}
-				}
-				break
-			case "phone":
-				{
-					let regexResult = phoneNumberRegex.test(formValue.phone.value);
-					if (!regexResult) {
-						setErrMsg(identifier, "Hãy nhập số điện thoại đúng định dạng [+84123456789]")
-					} else {
-						clearErrMsg(identifier)
-					}
-				}
-				break
-			default:
-				break
+	const phoneValidation = value => {
+		let regexResult = phoneNumberRegex.test(value)
+		if (!regexResult) {
+			setErrMsg("phone", "Hãy nhập số điện thoại đúng định dạng [+84123456789]")
+		} else {
+			clearErrMsg("phone")
 		}
 	}
 
 	// Using Regex for Pwd validation
-	const validateSignUpPassword = password => {
+	const passwordValidation = password => {
 		const validationRules = [
 			{ key: "letter", regex: /[a-z]/ },
 			{ key: "capital", regex: /[A-Z]/ },
@@ -165,6 +117,56 @@ export default function SignUpScreen() {
 			...prevState,
 			isAllValid: isAllValid,
 		}))
+
+		if (!isAllValid) {
+			setErrMsg("password", "Mật khẩu chưa hợp lệ, vui lòng kiểm tra lại")
+		} else {
+			clearErrMsg("password")
+		}
+	}
+
+	// Handle Blur
+	const handleBlur = identifier => {
+		switch (identifier) {
+			case "username":
+				userNameValidation(formValue.username.value)
+				break
+
+			case "password":
+				passwordValidation(formValue.password.value)
+				break
+
+			case "re-pwd":
+				if (formValue.password.value !== formValue["re-pwd"].value) {
+					setErrMsg(identifier, "Mật khẩu nhập lại không khớp")
+				} else {
+					clearErrMsg(identifier)
+				}
+				break
+
+			case "email":
+				emailValidation(formValue.email.value)
+				break
+			case "phone":
+				phoneValidation(formValue.phone.value)
+				break
+			default:
+				break
+		}
+	}
+
+	const handleInputChange = (identifier, value) => {
+		setFormValue(prevState => ({
+			...prevState,
+			[identifier]: {
+				...prevState[identifier],
+				value: value,
+			},
+		}))
+
+		if (identifier == "password") {
+			passwordValidation(value)
+		}
 	}
 
 	return (
