@@ -11,7 +11,11 @@ import {
 import TextInputForm from "../../components/TextInputForm"
 import Button from "../../components/Button"
 import { Link } from "react-router-dom"
-import { minUsrCharRequired } from "../../utils/formValidationRuleset"
+import {
+	minUsrCharRequired,
+	emailRegex,
+	phoneNumberRegex,
+} from "../../utils/formValidationRuleset"
 
 export default function SignUpScreen() {
 	const handleInputChange = (identifier, value) => {
@@ -46,11 +50,24 @@ export default function SignUpScreen() {
 			isAllValid: false,
 		})
 
+	
+
 	// If allClear, then the form is ready to be submitted
 	const [allClear, setAllClear] = useState(false)
 
 	// Handle Blur
 	const handleBlur = identifier => {
+		const setErrMsg = (identifier, msg) => {
+			setFormValue(prevState => ({
+				...prevState,
+				[identifier]: {
+					...prevState[identifier],
+					error: true,
+					err_msg: msg,
+				},
+			}))
+		}
+
 		const clearErrMsg = identifier => {
 			setFormValue(prevState => ({
 				...prevState,
@@ -65,29 +82,54 @@ export default function SignUpScreen() {
 		switch (identifier) {
 			case "username":
 				if (formValue.username.value.length <= minUsrCharRequired) {
-					console.log("username fail!")
-					setFormValue(prevState => ({
-						...prevState,
-						[identifier]: {
-							...prevState[identifier],
-							error: true,
-							err_msg: `Tài khoản phải có > ${minUsrCharRequired} ký tự`,
-						},
-					}))
-				} else { clearErrMsg(identifier) }
+					setErrMsg(
+						identifier,
+						`Tài khoản phải có > ${minUsrCharRequired} ký tự`
+					)
+				} else {
+					clearErrMsg(identifier)
+				}
+				break
+
+			case "password":
+				if (!signUpPasswordValidationStatus.isAllValid) {
+					setErrMsg(identifier, "Mật khẩu chưa hợp lệ, vui lòng kiểm tra lại")
+				} else {
+					clearErrMsg(identifier)
+				}
+
 				break
 
 			case "re-pwd":
 				if (formValue.password.value !== formValue["re-pwd"].value) {
-					setFormValue(prevState => ({
-						...prevState,
-						[identifier]: {
-							...prevState[identifier],
-							error: true,
-							err_msg: `Không khớp`,
-						},
-					}))
-				} else { clearErrMsg(identifier) }
+					setErrMsg(identifier, "Mật khẩu nhập lại không khớp")
+				} else {
+					clearErrMsg(identifier)
+				}
+				break
+
+			case "email":
+				{
+					let regexResult = emailRegex.test(formValue.email.value)
+					if (!regexResult) {
+						setErrMsg(
+							identifier,
+							"Hãy nhập email đúng định dạng [someone@example.com] "
+						)
+					} else {
+						clearErrMsg(identifier)
+					}
+				}
+				break
+			case "phone":
+				{
+					let regexResult = phoneNumberRegex.test(formValue.phone.value);
+					if (!regexResult) {
+						setErrMsg(identifier, "Hãy nhập số điện thoại đúng định dạng [+84123456789]")
+					} else {
+						clearErrMsg(identifier)
+					}
+				}
 				break
 			default:
 				break
@@ -123,8 +165,6 @@ export default function SignUpScreen() {
 			...prevState,
 			isAllValid: isAllValid,
 		}))
-
-		console.log(signUpPasswordValidationStatus)
 	}
 
 	return (

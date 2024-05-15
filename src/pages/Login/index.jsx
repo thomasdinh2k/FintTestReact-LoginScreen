@@ -53,7 +53,7 @@ export default function LoginScreen() {
 				}))
 			}
 
-			if (value.length >= minCharRequired) {
+			if (value.length >= minUsrCharRequired) {
 				// De-trigger when user input enough character
 				setFormValue(prevState => ({
 					...prevState,
@@ -83,7 +83,7 @@ export default function LoginScreen() {
 			var formObject = formItem[1]
 
 			// Display Error: Min char count required
-			if (formObject.value.length < minCharRequired) {
+			if (formObject.value.length < minUsrCharRequired) {
 				setFormValue(prevState => ({
 					...prevState,
 					[formLabel]: {
@@ -91,7 +91,7 @@ export default function LoginScreen() {
 						error: true,
 						err_msg: `${
 							formLabel.charAt(0).toUpperCase() + formLabel.slice(1)
-						} quá ngắn (${formObject.value.length}/${minCharRequired} ký tự)`,
+						} quá ngắn (${formObject.value.length}/${minUsrCharRequired} ký tự)`,
 					},
 				}))
 			}
@@ -105,7 +105,7 @@ export default function LoginScreen() {
 	const handleOnBlur = identifier => {
 		var inputValue = formValue[identifier].value
 		// Display Error: Min char count required
-		if (inputValue.length < minCharRequired && inputValue.length > 0) {
+		if (inputValue.length < minUsrCharRequired && inputValue.length > 0) {
 			setFormValue(prevState => ({
 				...prevState,
 				[identifier]: {
@@ -113,7 +113,7 @@ export default function LoginScreen() {
 					error: true,
 					err_msg: `${
 						identifier.charAt(0).toUpperCase() + identifier.slice(1)
-					} quá ngắn (${inputValue.length}/${minCharRequired} ký tự)`,
+					} quá ngắn (${inputValue.length}/${minUsrCharRequired} ký tự)`,
 				},
 			}))
 		}
