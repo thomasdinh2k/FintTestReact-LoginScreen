@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Wrapper from "../../components/Wrapper"
 import "./styles.scss"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -26,8 +26,15 @@ export default function SignUpScreen() {
 		"phone": { value: "", error: false, err_msg: "" },
 	})
 
-	// If allClear, then the form is ready to be submitted
+	// If allClear, then the form is ready to be submitted, hence re-enabled submit button (disable as default)
 	const [allClear, setAllClear] = useState(false)
+	useEffect(() => {
+		setAllClear(
+			Object.values(formValue).every(field => {
+				return !field.error && field.value.trim() !== ""
+			})
+		)
+	}, [formValue])
 
 	const [signUpPasswordValidationStatus, setSignUpPasswordValidationStatus] =
 		useState({
@@ -164,8 +171,24 @@ export default function SignUpScreen() {
 			},
 		}))
 
-		if (identifier == "password") {
-			passwordValidation(value)
+		switch (identifier) {
+			case "username":
+				userNameValidation(value)
+				break
+
+			case "password":
+				passwordValidation(value)
+				break
+
+			case "email":
+				emailValidation(value)
+				break
+			case "phone":
+				phoneValidation(value)
+				break
+
+			default:
+				break
 		}
 	}
 
@@ -184,6 +207,9 @@ export default function SignUpScreen() {
 						required={true}
 						error={formValue.username.error}
 						errorMsg={formValue.username.err_msg}
+						isValid={
+							formValue.username.value.length > 0 && !formValue.username.error
+						}
 						value={formValue.username.value}
 						icon={<FontAwesomeIcon icon={faUser} />}
 						onChange={event =>
@@ -238,6 +264,7 @@ export default function SignUpScreen() {
 						error={formValue.email.error}
 						errorMsg={formValue.email.err_msg}
 						onChange={event => handleInputChange("email", event.target.value)}
+						isValid={formValue.email.value.length > 0 && !formValue.email.error}
 						onBlur={() => {
 							handleBlur("email")
 						}}
@@ -251,6 +278,7 @@ export default function SignUpScreen() {
 						value={formValue.phone.value}
 						error={formValue.phone.error}
 						errorMsg={formValue.phone.err_msg}
+						isValid={formValue.phone.value.length > 3 && !formValue.phone.error}
 						onChange={event => handleInputChange("phone", event.target.value)}
 						onBlur={() => {
 							handleBlur("phone")
