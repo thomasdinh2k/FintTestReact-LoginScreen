@@ -17,6 +17,7 @@ export default function TextInputForm({
 			<input
 				className={`form-control ${error ? "error" : ""} ${isValid ? "valid" : ""}`}
 				required={required}
+				autoComplete="on"
 				{...otherProperties}
 			/>
 

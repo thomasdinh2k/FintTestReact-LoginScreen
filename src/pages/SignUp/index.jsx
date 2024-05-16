@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import Wrapper from "../../components/Wrapper"
 import "./styles.scss"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -19,12 +19,17 @@ import {
 import CaptchaBox from "../../components/TextInputForm/CaptchaBox"
 
 export default function SignUpScreen() {
+	/**
+	 *  States
+	 */
+
 	const [formValue, setFormValue] = useState({
 		"username": { value: "", error: false, err_msg: "" },
 		"password": { value: "", error: false, err_msg: "" },
 		"re-pwd": { value: "", error: false, err_msg: "" },
 		"email": { value: "", error: false, err_msg: "" },
 		"phone": { value: "", error: false, err_msg: "" },
+		"captcha": { value: "", error: false, err_msg: "" },
 	})
 
 	// If allClear, then the form is ready to be submitted, hence re-enabled submit button (disable as default)
@@ -47,6 +52,11 @@ export default function SignUpScreen() {
 			isAllValid: false,
 		})
 
+	const [captchaContent, setCaptchaContent] = useState([])
+
+	/**
+	 *  Utilities
+	 */
 	const setErrMsg = (identifier, msg) => {
 		setFormValue(prevState => ({
 			...prevState,
@@ -133,6 +143,14 @@ export default function SignUpScreen() {
 		}
 	}
 
+	const captchaValidation = value => {
+		if (value !== captchaContent.join("")) {
+			setErrMsg("captcha", "Mã Captcha không khớp")
+		} else {
+			clearErrMsg("captcha")
+		}
+	}
+
 	// Handle Blur
 	const handleBlur = identifier => {
 		switch (identifier) {
@@ -187,12 +205,116 @@ export default function SignUpScreen() {
 			case "phone":
 				phoneValidation(value)
 				break
-
+			case "captcha":
+				captchaValidation(value)
+				break
 			default:
 				break
 		}
 	}
 
+	// Captcha
+	const charactersArray = [
+		"a",
+		"b",
+		"c",
+		"d",
+		"e",
+		"f",
+		"g",
+		"h",
+		"i",
+		"j",
+		"k",
+		"l",
+		"m",
+		"n",
+		"o",
+		"p",
+		"q",
+		"r",
+		"s",
+		"t",
+		"u",
+		"v",
+		"w",
+		"x",
+		"y",
+		"z",
+		"A",
+		"B",
+		"C",
+		"D",
+		"E",
+		"F",
+		"G",
+		"H",
+		"I",
+		"J",
+		"K",
+		"L",
+		"M",
+		"N",
+		"O",
+		"P",
+		"Q",
+		"R",
+		"S",
+		"T",
+		"U",
+		"V",
+		"W",
+		"X",
+		"Y",
+		"Z",
+		"0",
+		"1",
+		"2",
+		"3",
+		"4",
+		"5",
+		"7",
+		"8",
+	]
+
+	const setCaptchaArray = () => {
+		const captchaArray = []
+		const maxChar = 4
+
+		for (let i = captchaArray.length; i <= maxChar - 1; i++) {
+			captchaArray[i] =
+				charactersArray[Math.floor(Math.random() * charactersArray.length)]
+		}
+
+		setCaptchaContent(captchaArray)
+	}
+
+	const handleReloadCaptcha = event => {
+		event.preventDefault()
+		setCaptchaArray()
+	}
+
+	useEffect(() => {
+		setCaptchaArray()
+	}, [allClear])
+
+	// useMemo(() => {
+	// 	setCaptchaArray()
+	// }, [allClear])
+
+	// const memoCaptchaBox = useMemo(
+	// 	() => (
+	// 		<CaptchaBox
+	// 			captchaContent={captchaContent}
+	// 			handleReloadContent={handleReloadCaptcha}
+	// 			onChange={event => {
+	// 				handleInputChange("captcha", event.target.value)
+	// 			}}
+	// 			correct={formValue.captcha.value.length > 1 && !formValue.captcha.error}
+	// 		/>
+	// 	),
+	// 	[captchaContent]
+	// )
 	return (
 		<div className="SignUpScreen">
 			<Wrapper moprh={true}>
@@ -286,7 +408,19 @@ export default function SignUpScreen() {
 						}}
 					/>
 
-					<CaptchaBox />
+					<CaptchaBox
+
+						// CaptchaContent and HandleReloadContent caused the Component to be re-rendered
+						// [ ] Test having the state isolated for this Component only
+						captchaContent={captchaContent}
+						handleReloadContent={handleReloadCaptcha}
+						onChange={event => {
+							handleInputChange("captcha", event.target.value)
+						}}
+						correct={
+							formValue.captcha.value.length > 1 && !formValue.captcha.error
+						}
+					/>
 
 					<div id="CTA-buttons">
 						<Button error={!allClear}>Đăng ký</Button>

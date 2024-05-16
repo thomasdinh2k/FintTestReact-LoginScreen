@@ -1,4 +1,11 @@
 @import "../../../styles/styles.scss";
+/* src/fonts.css */
+@font-face {
+	font-family: "Mom";
+	src: url("../../../assets/Mom.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
 
 .captcha-box {
 	& > *:not(:first-child) {
@@ -29,19 +36,20 @@
 				top: 50%;
 				left: 50%;
 				transform: translate(-50%, -50%);
-				font-size: 35px;
+				font-size: 30px;
 				letter-spacing: 10px;
 				width: 100%;
 				text-align: center;
 				overflow: hidden;
 
-				color: #fff;
+				color: rgb(0 83 164);
 				text-shadow: 0 0 2px #b1b1b1;
-				opacity: 0.8;
+				// opacity: 0.8;
 
-                span {
-                    display:inline-block;
-                }
+				span {
+					display: inline-block;
+					font-family: "Mom";
+				}
 			}
 		}
 
@@ -67,6 +75,12 @@
 			height: 100%;
 			width: 100%;
 			padding: 5px;
+			border-radius: 5px;
+			border: solid 0.5px black;
+			transition: 0.5s all ease-in-out;
+			&.correct{
+				box-shadow: 0px 07px 0px 0px #27ae60;
+			}
 		}
 	}
 
