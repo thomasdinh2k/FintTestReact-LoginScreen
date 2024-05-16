@@ -16,6 +16,7 @@ import {
 	emailRegex,
 	phoneNumberRegex,
 } from "../../utils/formValidationRuleset"
+import CaptchaBox from "../../components/TextInputForm/CaptchaBox"
 
 export default function SignUpScreen() {
 	const [formValue, setFormValue] = useState({
@@ -284,6 +285,8 @@ export default function SignUpScreen() {
 							handleBlur("phone")
 						}}
 					/>
+
+					<CaptchaBox />
 
 					<div id="CTA-buttons">
 						<Button error={!allClear}>Đăng ký</Button>
